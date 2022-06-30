@@ -5,9 +5,13 @@ import SearchIcon from '@heroicons/react/solid/SearchIcon'
 import LibraryMusicIcon from '@heroicons/react/solid/LibraryIcon'
 import AddBoxIcon from '@heroicons/react/solid/PlusCircleIcon'
 import FavoriteIcon from '@heroicons/react/solid/HeartIcon'
+import LogooutIcon from '@heroicons/react/solid/LogoutIcon'
+import { signOut, useSession } from 'next-auth/react'
 
 const Sidebar = () => {
-  // const [{ playlists }, dispatch] = useDataLayerValue()
+  const { data: session, status } = useSession()
+  console.log(status)
+
   return (
     <div className="bg-black w-1/4 text-white p-5">
       <img
@@ -25,6 +29,14 @@ const Sidebar = () => {
       <div className="mt-4 pb-2 border-b border-stone-300/25">
         <SidebarItem Icon={AddBoxIcon} title="Create Playlist" />
         <SidebarItem Icon={FavoriteIcon} title="Liked Songs" />
+      </div>
+
+      <div
+        onClick={() => {
+          signOut({ callbackUrl: '/login' })
+        }}
+      >
+        <SidebarItem Icon={LogooutIcon} title="Logout"></SidebarItem>
       </div>
 
       {/* <div>

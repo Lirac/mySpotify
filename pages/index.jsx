@@ -1,6 +1,6 @@
 import Sidebar from '../components/sidebar/Sidebar'
 
-const index = () => {
+const Index = () => {
   return (
     <main className="h-screen overflow-hidden bg-black">
       <Sidebar></Sidebar>
@@ -8,4 +8,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
