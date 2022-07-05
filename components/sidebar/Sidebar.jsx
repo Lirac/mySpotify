@@ -8,11 +8,17 @@ import FavoriteIcon from '@heroicons/react/solid/HeartIcon'
 import LogooutIcon from '@heroicons/react/solid/LogoutIcon'
 import { signOut, useSession } from 'next-auth/react'
 import useSpotify from '../../hooks/useSpotify'
+import { playlistIdState } from '../../atoms/playlistAtom'
+import { useRecoilState } from 'recoil'
+
+
 
 const Sidebar = () => {
   const spotifyApi = useSpotify()
   const { data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
+  const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
+
 
   useEffect(() => {
     if (spotifyApi?.getAccessToken()) {
@@ -23,12 +29,13 @@ const Sidebar = () => {
         })
         .catch(err => console.log(err))
     }
-  }, [session, spotifyApi])
-  console.log(session)
-  console.log(playlists)
+  }, [session, spotifyApi]);
+
+
+ 
 
   return (
-    <div className="bg-black text-white p-5 overflow-y-scroll scrollbar-hide h-screen">
+    <div className="bg-black text-white min-w-[250px] p-5 overflow-y-scroll scrollbar-hide h-screen">
       <img
         src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
         alt=""
@@ -48,14 +55,14 @@ const Sidebar = () => {
 
       <div>
         {playlists?.map(item => (
-          <SidebarItem key={item.id} title={item.name} />
+          <SidebarItem
+            key={item.id}
+            title={item.name}
+            clicked={() => setPlaylistId(item.id)}
+          />
         ))}
       </div>
-      <div
-        onClick={() => {
-          signOut({ callbackUrl: '/login' })
-        }}
-      >
+      <div onClick={() => signOut({ callbackUrl: '/login' })}>
         <SidebarItem Icon={LogooutIcon} title="Logout"></SidebarItem>
       </div>
     </div>

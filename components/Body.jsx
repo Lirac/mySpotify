@@ -5,7 +5,11 @@ import MoreHorizIcon from '@heroicons/react/solid/DotsHorizontalIcon'
 import AccessTimeIcon from '@heroicons/react/solid/ClockIcon'
 import { useSession } from 'next-auth/react'
 import Header from '../components/player-header/Header'
+import SongRow from '../components/SongRow'
 import { shuffle } from 'lodash'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { playlistIdState, playlistState } from '../atoms/playlistAtom'
+import useSpotify from '../hooks/useSpotify'
 
 const colors = [
   'from-indigo-500',
@@ -21,11 +25,24 @@ const colors = [
 
 const Body = () => {
   const { data: session } = useSession()
+  const spotifyApi = useSpotify()
   const [color, setColor] = useState(null)
+  const playlistId = useRecoilValue(playlistIdState)
+  const [playlist, setPlaylist] = useRecoilState(playlistState)
 
   useEffect(() => {
+    spotifyApi
+      .getPlaylist(playlistId)
+      .then(data => {
+        setPlaylist(data.body)
+      })
+      .catch(err => console.log(err))
+  }, [spotifyApi, playlistId])
+
+  console.log('Your current playlist >>>', playlist)
+  useEffect(() => {
     setColor(shuffle(colors).pop())
-  },[])
+  }, [playlistId])
 
   return (
     <div className="flex-grow overflow-y-scroll scrollbar-hide bg-zinc-900">
@@ -35,27 +52,31 @@ const Body = () => {
         <Header />
 
         <div className="flex items-end gap-8 text-white mb-6 px-7">
-          <img src={session?.user?.image} alt="" className="w-[15vw]" />
+          <img src={playlist?.images?.[0].url} alt="" className="w-[15vw] shadow-2xl" />
           <div>
             <p className="font-bold text-white text-xs">PLAYLIST</p>
             <h2 className="text-[6.3vw] font-bold text-white leading-none mb-4">
-              {/* {global?.name} */}
-              Name
+              {playlist?.name}
             </h2>
-            <h6 className="text-white/80 text-sm font-semibold">Description</h6>
+            <h6 className="text-white/80 text-sm font-semibold">
+              {playlist?.description}
+            </h6>
             <div className="text-sm font-medium">
               <span>
-                Spotify
+                {playlist?.owner?.display_name}
                 <span className="bg-white p-[2px] rounded-[50%] inline-block mx-1"></span>
               </span>
               <span>
-                {/* {global?.followers?.total?.toLocaleString(undefined, {
+                {playlist?.followers?.total?.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
-                })}{' '} */}
-                12345 likes
+                })} likes
               </span>
               <span className="bg-white p-[2px] rounded-[50%] inline-block mx-1"></span>
-              <span>7456 songs</span>
+              <span>
+                {playlist?.tracks.total > 1
+                  ? `${playlist?.tracks.total} songs`
+                  : `${playlist?.tracks.total} song`}
+              </span>
             </div>
           </div>
         </div>
@@ -73,16 +94,16 @@ const Body = () => {
             <div className="basis-[35%]">ALBUM</div>
             <div className="basis-[15%] text-left">DATE ADDED</div>
             <div className="basis-[5%] text-right">
-              <AccessTimeIcon fontSize="small" />
+              <AccessTimeIcon className='w-6' />
             </div>
           </div>
         </div>
 
-        {/* <div>
-          {global?.tracks?.items?.map((item, index) => (
+        <div>
+          {playlist?.tracks?.items?.map((item, index) => (
             <SongRow item={item} index={index}></SongRow>
           ))}
-        </div> */}
+        </div>
       </div>
     </div>
   )
