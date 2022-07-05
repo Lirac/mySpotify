@@ -11,14 +11,11 @@ import useSpotify from '../../hooks/useSpotify'
 import { playlistIdState } from '../../atoms/playlistAtom'
 import { useRecoilState } from 'recoil'
 
-
-
 const Sidebar = () => {
   const spotifyApi = useSpotify()
   const { data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
-
 
   useEffect(() => {
     if (spotifyApi?.getAccessToken()) {
@@ -29,31 +26,28 @@ const Sidebar = () => {
         })
         .catch(err => console.log(err))
     }
-  }, [session, spotifyApi]);
-
-
- 
+  }, [session, spotifyApi])
 
   return (
-    <div className="bg-black text-white min-w-[250px] p-5 overflow-y-scroll scrollbar-hide h-screen">
+    <div className="bg-black text-white min-w-[250px] p-5 overflow-y-scroll scrollbar-hide h-screen hidden md:block">
       <img
         src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
         alt=""
         className="h-[70px]"
       />
 
-      <div className="mt-4">
+      <div className="ml-4 mt-4">
         <SidebarItem Icon={HomeIcon} title="Home"></SidebarItem>
         <SidebarItem Icon={SearchIcon} title="Search"></SidebarItem>
         <SidebarItem Icon={LibraryMusicIcon} title="Your Library"></SidebarItem>
       </div>
 
-      <div className="mt-4 pb-2 border-b border-stone-300/25">
+      <div className="ml-4 mt-4 pb-2 border-b border-stone-300/25">
         <SidebarItem Icon={AddBoxIcon} title="Create Playlist" />
         <SidebarItem Icon={FavoriteIcon} title="Liked Songs" />
       </div>
 
-      <div>
+      <div className="ml-4">
         {playlists?.map(item => (
           <SidebarItem
             key={item.id}
@@ -62,7 +56,7 @@ const Sidebar = () => {
           />
         ))}
       </div>
-      <div onClick={() => signOut({ callbackUrl: '/login' })}>
+      <div onClick={() => signOut({ callbackUrl: '/login' })} className="ml-4">
         <SidebarItem Icon={LogooutIcon} title="Logout"></SidebarItem>
       </div>
     </div>

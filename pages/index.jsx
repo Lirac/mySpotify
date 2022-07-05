@@ -1,6 +1,7 @@
 import Sidebar from '../components/sidebar/Sidebar'
 import Body from '../components/Body'
-const Index = () => {
+import { getSession } from 'next-auth/react'
+export default function Home() {
   return (
     <main className="h-screen overflow-hidden bg-black flex">
       <Sidebar></Sidebar>
@@ -9,4 +10,12 @@ const Index = () => {
   )
 }
 
-export default Index
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+
+  return {
+    props: {
+      session,
+    },
+  }
+}

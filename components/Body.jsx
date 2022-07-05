@@ -52,7 +52,11 @@ const Body = () => {
         <Header />
 
         <div className="flex items-end gap-8 text-white mb-6 px-7">
-          <img src={playlist?.images?.[0].url} alt="" className="w-[15vw] shadow-2xl" />
+          <img
+            src={playlist?.images?.[0].url}
+            alt=""
+            className="w-[15vw] shadow-2xl"
+          />
           <div>
             <p className="font-bold text-white text-xs">PLAYLIST</p>
             <h2 className="text-[6.3vw] font-bold text-white leading-none mb-4">
@@ -69,7 +73,8 @@ const Body = () => {
               <span>
                 {playlist?.followers?.total?.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
-                })} likes
+                })}{' '}
+                likes
               </span>
               <span className="bg-white p-[2px] rounded-[50%] inline-block mx-1"></span>
               <span>
@@ -94,14 +99,14 @@ const Body = () => {
             <div className="basis-[35%]">ALBUM</div>
             <div className="basis-[15%] text-left">DATE ADDED</div>
             <div className="basis-[5%] text-right">
-              <AccessTimeIcon className='w-6' />
+              <AccessTimeIcon className="w-6" />
             </div>
           </div>
         </div>
 
         <div>
           {playlist?.tracks?.items?.map((item, index) => (
-            <SongRow item={item} index={index}></SongRow>
+            <SongRow key={item.track.id} item={item} index={index}></SongRow>
           ))}
         </div>
       </div>
