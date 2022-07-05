@@ -56,9 +56,6 @@ const Sidebar = () => {
           />
         ))}
       </div>
-      <div onClick={() => signOut({ callbackUrl: '/login' })} className="ml-4">
-        <SidebarItem Icon={LogooutIcon} title="Logout"></SidebarItem>
-      </div>
     </div>
   )
 }

@@ -88,13 +88,13 @@ const Body = () => {
       </div>
       <div className="bg-black/10 px-7 pt-8 h-fit mt-[-50vh] mb-6">
         <div className="flex">
-          <PlayCircleFilledIcon className="scale-[1.7] hover:scale-[1.8] text-green-400 mr-8 w-10" />
+          <PlayCircleFilledIcon className="hover:scale-[1.8] text-green-400 mr-8 w-16" />
           <FavoriteBorderIcon className="text-white/70 hover:text-white mr-5 w-8" />
           <MoreHorizIcon className="text-white/70 hover:text-white w-8" />
         </div>
-        <div className="text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2">
+        <div className="text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2 hidden md:block">
           <div className="px-2 flex items-center">
-            <div className="basis-[3%] text-lg text-center">#</div>
+            <div className="basis-[3%] text-lg text-center mr-3">#</div>
             <div className="basis-[40%] text-left ">TITLE</div>
             <div className="basis-[35%]">ALBUM</div>
             <div className="basis-[15%] text-left">DATE ADDED</div>

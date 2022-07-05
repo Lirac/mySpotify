@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react'
 import AccountButton from './buttons/AccountButton'
 import DropDownMenuItem from './dropdownMenu/DropdownMenuItem'
 import { headerContext } from '../../context/headerContext'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 
 const Header = () => {
   const { data: session } = useSession()
@@ -36,9 +36,15 @@ const Header = () => {
               showDropdown ? 'block' : 'hidden'
             }`}
           >
-            {dropDownItems.map(item => (
-              <DropDownMenuItem title={item.title} hasIcon={item.hasIcon} />
-            ))}
+            <DropDownMenuItem title="Account" hasIcon={true} />
+            <DropDownMenuItem title="Profile" hasIcon={false} />
+            <DropDownMenuItem title="Support" hasIcon={true} />
+            <DropDownMenuItem title="Download" hasIcon={true} />
+            <DropDownMenuItem
+              title="Log Out"
+              hasIcon={false}
+              clicked={() => signOut({ callbackUrl: '/login' })}
+            />
           </div>
         </div>
       </div>
