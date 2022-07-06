@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PlayCircleFilledIcon from '@heroicons/react/solid/PlayIcon'
+import PauseIcon from '@heroicons/react/solid/PauseIcon'
 import FavoriteBorderIcon from '@heroicons/react/solid/HeartIcon'
 import MoreHorizIcon from '@heroicons/react/solid/DotsHorizontalIcon'
 import AccessTimeIcon from '@heroicons/react/solid/ClockIcon'
@@ -10,6 +11,7 @@ import { shuffle } from 'lodash'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { playlistIdState, playlistState } from '../atoms/playlistAtom'
 import useSpotify from '../hooks/useSpotify'
+import { isPlayingState } from '../atoms/songAtom'
 
 const colors = [
   'from-indigo-500',
@@ -29,6 +31,7 @@ const Body = () => {
   const [color, setColor] = useState(null)
   const playlistId = useRecoilValue(playlistIdState)
   const [playlist, setPlaylist] = useRecoilState(playlistState)
+  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   useEffect(() => {
     spotifyApi
@@ -43,6 +46,18 @@ const Body = () => {
   useEffect(() => {
     setColor(shuffle(colors).pop())
   }, [playlistId])
+
+  const playIcon = () => {
+    if (isPlaying) {
+      return (
+        <PauseIcon className="hover:scale-[1.1] text-green-400 mr-8 w-16" />
+      )
+    } else {
+      return (
+        <PlayCircleFilledIcon className="hover:scale-[1.1] text-green-400 mr-8 w-16" />
+      )
+    }
+  }
 
   return (
     <div className="flex-grow overflow-y-scroll scrollbar-hide bg-zinc-900">
@@ -88,17 +103,17 @@ const Body = () => {
       </div>
       <div className="bg-black/10 px-7 pt-8 h-fit mt-[-50vh] mb-6">
         <div className="flex">
-          <PlayCircleFilledIcon className="hover:scale-[1.8] text-green-400 mr-8 w-16" />
+          {playIcon()}
           <FavoriteBorderIcon className="text-white/70 hover:text-white mr-5 w-8" />
           <MoreHorizIcon className="text-white/70 hover:text-white w-8" />
         </div>
         <div className="text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2 hidden md:block">
           <div className="px-2 flex items-center">
-            <div className="basis-[3%] text-lg text-center mr-3">#</div>
-            <div className="basis-[40%] text-left ">TITLE</div>
+            <div className="basis-[3%] text-lg text-center pr-3">#</div>
+            <div className="basis-[40%]">TITLE</div>
             <div className="basis-[35%]">ALBUM</div>
-            <div className="basis-[15%] text-left">DATE ADDED</div>
-            <div className="basis-[5%] text-right">
+            <div className="basis-[15%]">DATE ADDED</div>
+            <div className="basis-[5%]">
               <AccessTimeIcon className="w-6" />
             </div>
           </div>
