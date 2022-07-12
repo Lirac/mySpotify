@@ -55,7 +55,7 @@ const Footer = () => {
       fetchCurrentSong()
       setVolume(50)
     }
-  }, [currentTrackIdState, spotifyApi, session])
+  }, [currentTrackId, spotifyApi, session])
 
   useEffect(() => {
     if (volume > 0 && volume < 100) {

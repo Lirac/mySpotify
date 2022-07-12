@@ -74,7 +74,7 @@ const Body = () => {
           />
           <div>
             <p className="font-bold text-white text-xs">PLAYLIST</p>
-            <h2 className="text-[6.3vw] font-bold text-white leading-none mb-4">
+            <h2 className="text-[5.5vw] font-bold text-white leading-none mb-4">
               {playlist?.name}
             </h2>
             <h6 className="text-white/80 text-sm font-semibold">

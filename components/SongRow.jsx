@@ -4,7 +4,7 @@ import MoreHorizIcon from '@heroicons/react/solid/DotsHorizontalIcon'
 import PlayArrowIcon from '@heroicons/react/solid/PlayIcon'
 import MusicNoteIcon from '@heroicons/react/solid/MusicNoteIcon'
 import PauseIcon from '@heroicons/react/solid/PauseIcon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import spotifyApi from '../lib/spotify'
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom'
@@ -19,15 +19,26 @@ const SongRow = ({ item, index }) => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   const playSong = () => {
-    if(!isPlaying) {
+    if (!isPlaying && currentTrackId !== item.track.id) {
       setCurrentTrackId(item.track.id)
-    setIsPlaying(true)
-    spotifyApi.play({ uris: [item.track.uri] })
+      setIsPlaying(true)
+      spotifyApi.play({ uris: [item.track.uri] })
+    } else if (!isPlaying && currentTrackId === item.track.id) {
+      spotifyApi.play().then(() => {
+        setIsPlaying(true)
+      })
+    } else if (isPlaying && currentTrackId !== item.track.id) {
+      spotifyApi.play({ uris: [item.track.uri] })
+      setCurrentTrackId(item.track.id)
     } else {
-      setIsPlaying(false)
       spotifyApi.pause()
+      setIsPlaying(false)
     }
   }
+
+  // useEffect(() => {
+  //   console.log('current track id = ' + currentTrackId)
+  // }, [isPlaying, currentTrackId])
 
   const rowPlayIcon = () => {
     if (rowHover) {
@@ -38,9 +49,9 @@ const SongRow = ({ item, index }) => {
       }
     } else {
       if (isPlaying && currentTrackId === item.track.id) {
-        return <MusicNoteIcon className="w-4" />
+        return <MusicNoteIcon className="w-6 pr-3" />
       } else {
-        return <p className='pr-6'> {index + 1}</p>
+        return <p className="pr-6"> {index + 1}</p>
       }
     }
   }
