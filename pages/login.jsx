@@ -20,7 +20,7 @@ const Login = ({ providers }) => {
             <button
               className="py-4 px-16 bg-green-500 rounded-3xl uppercase font-bold text-white text-sm cursor-pointer hover:bg-green-500/90"
               onClick={() => {
-                signIn(provider.id, { callbackUrl: '/' })
+                signIn(provider.id, { callbackUrl: 'https://www.myspotify-nine.vercel.app/api/auth/callback/spotify' })
               }}
             >
               Login with {provider.name}
