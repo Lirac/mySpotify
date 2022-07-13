@@ -109,11 +109,11 @@ const Body = () => {
         </div>
         <div className="text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2 hidden md:block">
           <div className="px-2 flex items-center">
-            <div className="basis-[3%] text-lg text-center pr-3">#</div>
-            <div className="basis-[40%]">TITLE</div>
-            <div className="basis-[35%]">ALBUM</div>
-            <div className="basis-[15%]">DATE ADDED</div>
-            <div className="basis-[5%]">
+            <div className="min-w-[5%] text-lg text-left">#</div>
+            <div className="min-w-[40%] text-left">TITLE</div>
+            <div className="min-w-[30%] text-left">ALBUM</div>
+            <div className="min-w-[15%]">DATE ADDED</div>
+            <div className="min-w-[10%] text-center flex justify-center">
               <AccessTimeIcon className="w-6" />
             </div>
           </div>

@@ -27,15 +27,13 @@ const Footer = () => {
   const songInfo = useSongInfo()
 
   const fetchCurrentSong = () => {
-    if (!songInfo) {
-      spotifyApi.getMyCurrentPlayingTrack().then(data => {
-        setCurrentTrackId(data.body?.item?.id)
+    spotifyApi.getMyCurrentPlayingTrack().then(data => {
+      setCurrentTrackId(data.body?.item?.id)
 
-        spotifyApi.getMyCurrentPlaybackState().then(data => {
-          setIsPlaying(data.body?.is_playing)
-        })
+      spotifyApi.getMyCurrentPlaybackState().then(data => {
+        setIsPlaying(data.body?.is_playing)
       })
-    }
+    })
   }
 
   const handlePlayPause = () => {
@@ -48,6 +46,29 @@ const Footer = () => {
         setIsPlaying(true)
       }
     })
+  }
+
+  const handleNext = () => {
+    spotifyApi
+      .skipToNext()
+      .then(() => {
+        fetchCurrentSong()
+        console.log('Skipped to next')
+      })
+      .catch(() => {
+        console.log('Skipping failed')
+      })
+  }
+  const handlePrevious = () => {
+    spotifyApi
+      .skipToPrevious()
+      .then(() => {
+        fetchCurrentSong()
+        console.log('Skipped to next')
+      })
+      .catch(() => {
+        console.log('Skipping failed')
+      })
   }
 
   useEffect(() => {
@@ -89,7 +110,10 @@ const Footer = () => {
 
       <div className="text-gray-300 flex items-center gap-3 justify-center">
         <SwitchHorizontal className="hover:text-white w-6" />
-        <SkipPreviousIcon className="hover:text-white w-6" />
+        <SkipPreviousIcon
+          className="hover:text-white w-6"
+          onClick={() => handlePrevious()}
+        />
         {isPlaying ? (
           <PauseIcon
             onClick={() => handlePlayPause()}
@@ -101,7 +125,10 @@ const Footer = () => {
             className="hover:text-white hover:scale-110 transition-all duration-200 w-10"
           />
         )}
-        <SkipNextIcon className="hover:text-white w-6" />
+        <SkipNextIcon
+          className="hover:text-white w-6"
+          onClick={() => handleNext()}
+        />
         <RepeatIcon className="hover:text-white w-6" />
       </div>
       <div className="text-gray-400 flex gap-3 items-center justify-end md:space-x-2 pr-5">

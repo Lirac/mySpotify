@@ -36,9 +36,9 @@ const SongRow = ({ item, index }) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log('current track id = ' + currentTrackId)
-  // }, [isPlaying, currentTrackId])
+  useEffect(() => {
+    console.log('current track id = ' + currentTrackId)
+  }, [isPlaying, currentTrackId])
 
   const rowPlayIcon = () => {
     if (rowHover) {
@@ -49,9 +49,9 @@ const SongRow = ({ item, index }) => {
       }
     } else {
       if (isPlaying && currentTrackId === item.track.id) {
-        return <MusicNoteIcon className="w-6 pr-3" />
+        return <MusicNoteIcon className="w-3" />
       } else {
-        return <p className="pr-6"> {index + 1}</p>
+        return <p className=""> {index + 1}</p>
       }
     }
   }
@@ -66,10 +66,10 @@ const SongRow = ({ item, index }) => {
         setRowHover(false)
       }}
     >
-      <div className="basis-[3%] text-center" onClick={playSong}>
+      <div className="min-w-[5%] text-left" onClick={playSong}>
         {rowPlayIcon()}
       </div>
-      <div className="basis-[40%] flex gap-3 ">
+      <div className="min-w-[40%] flex gap-3">
         <img
           src={item.track.album.images[0].url}
           alt=""
@@ -84,13 +84,13 @@ const SongRow = ({ item, index }) => {
           </p>
         </div>
       </div>
-      <div className="basis-[35%] text-xs font-medium">
+      <div className="min-w-[30%] text-xs font-medium">
         {item.track.album.name}
       </div>
-      <div className="basis-[15%] text-left text-sm">
+      <div className="min-w-[15%] text-left text-sm">
         {dateFormat(item.added_at, 'mmm dd, yyyy')}
       </div>
-      <div className="basis-[5%] text-sm flex items-center gap-3">
+      <div className="min-w-[10%] text-sm flex justify-center items-center gap-3">
         <span
           className={`${
             rowHover ? 'visible' : 'invisible'
