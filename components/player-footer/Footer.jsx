@@ -64,7 +64,7 @@ const Footer = () => {
       .skipToPrevious()
       .then(() => {
         fetchCurrentSong()
-        console.log('Skipped to next')
+        console.log('Skipped to previous')
       })
       .catch(() => {
         console.log('Skipping failed')
@@ -72,9 +72,8 @@ const Footer = () => {
   }
 
   useEffect(() => {
-    if (spotifyApi.getAccessToken && !currentTrackId) {
+    if (spotifyApi.getAccessToken) {
       fetchCurrentSong()
-      setVolume(50)
     }
   }, [currentTrackId, spotifyApi, session])
 

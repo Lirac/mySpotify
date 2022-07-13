@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import spotifyApi from '../lib/spotify'
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom'
+import { useSession } from 'next-auth/react'
 
 const SongRow = ({ item, index }) => {
   function truncate(str, n) {
@@ -17,6 +18,7 @@ const SongRow = ({ item, index }) => {
   const [currentTrackId, setCurrentTrackId] =
     useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  const { data: session, status } = useSession()
 
   const playSong = () => {
     if (!isPlaying && currentTrackId !== item.track.id) {
@@ -36,9 +38,9 @@ const SongRow = ({ item, index }) => {
     }
   }
 
-  useEffect(() => {
-    console.log('current track id = ' + currentTrackId)
-  }, [isPlaying, currentTrackId])
+  // useEffect(() => {
+  //   console.log('current track id = ' + currentTrackId)
+  // }, [isPlaying, currentTrackId])
 
   const rowPlayIcon = () => {
     if (rowHover) {
