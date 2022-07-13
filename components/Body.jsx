@@ -50,13 +50,31 @@ const Body = () => {
   const playIcon = () => {
     if (isPlaying) {
       return (
-        <PauseIcon className="hover:scale-[1.1] text-green-400 mr-8 w-16" />
+        <PauseIcon
+          onClick={() => handlePlayPause()}
+          className="hover:scale-[1.1] text-green-400 mr-8 w-16"
+        />
       )
     } else {
       return (
-        <PlayCircleFilledIcon className="hover:scale-[1.1] text-green-400 mr-8 w-16" />
+        <PlayCircleFilledIcon
+          onClick={() => handlePlayPause()}
+          className="hover:scale-[1.1] text-green-400 mr-8 w-16"
+        />
       )
     }
+  }
+
+  const handlePlayPause = () => {
+    spotifyApi.getMyCurrentPlaybackState().then(data => {
+      if (data.body.is_playing) {
+        spotifyApi.pause()
+        setIsPlaying(false)
+      } else {
+        spotifyApi.play()
+        setIsPlaying(true)
+      }
+    })
   }
 
   return (
