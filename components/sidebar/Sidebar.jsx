@@ -29,7 +29,7 @@ const Sidebar = () => {
   }, [session, spotifyApi])
 
   return (
-    <div className="bg-black text-white min-w-[250px] p-5 overflow-y-scroll scrollbar-hide h-screen hidden md:block">
+    <div className="bg-black text-white min-w-[250px] p-5 h-screen hidden md:block">
       <img
         src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
         alt=""
@@ -47,7 +47,8 @@ const Sidebar = () => {
         <SidebarItem Icon={FavoriteIcon} title="Liked Songs" />
       </div>
 
-      <div className="ml-4">
+      <div className="ml-4 h-full overflow-hidden">
+        <div className='h-[55vh] max-h-full overflow-auto scrollbar-hide pb-24'>
         {playlists?.map(item => (
           <SidebarItem
             key={item.id}
@@ -55,6 +56,7 @@ const Sidebar = () => {
             clicked={() => setPlaylistId(item.id)}
           />
         ))}
+        </div>
       </div>
     </div>
   )
