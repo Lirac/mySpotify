@@ -26,6 +26,10 @@ const Footer = () => {
   const { data: session } = useSession()
   const songInfo = useSongInfo()
 
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + '...' : str
+  }
+
   const fetchCurrentSong = () => {
     spotifyApi.getMyCurrentPlayingTrack().then(data => {
       setCurrentTrackId(data.body?.item?.id)
@@ -92,19 +96,21 @@ const Footer = () => {
 
   return (
     <div className="flex items-center justify-between bg-zinc-900 bottom-0 fixed w-full py-3 px-5">
-      <div className="hidden md:flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <img
           src={songInfo?.album?.images?.[0]?.url}
           alt=""
           className="h-12 object-contain"
         />
         <div className="text-white mr-4">
-          <h3 className="text-sm font-semibold leading-3">{songInfo?.name}</h3>
+          <h3 className="text-[2.5vw] font-semibold leading-[0.5rem]">
+            {truncate(songInfo?.name,30)}
+          </h3>
           <small className="text-[10px] text-gray-300 leading-3">
             {songInfo?.album?.name}
           </small>
         </div>
-        <FavoriteBorderIcon className="text-gray-300 w-6" />
+        <FavoriteBorderIcon className="text-gray-300 w-6 hidden sm:block" />
       </div>
 
       <div className="text-gray-300 flex items-center gap-3 justify-center grow">
