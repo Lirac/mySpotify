@@ -100,14 +100,14 @@ const Footer = () => {
         <img
           src={songInfo?.album?.images?.[0]?.url}
           alt=""
-          className="h-12 object-contain"
+          className="h-9 sm:h-12 object-contain"
         />
         <div className="text-white mr-4">
           <h3 className="text-[2.5vw] font-semibold leading-[0.5rem]">
             {truncate(songInfo?.name,30)}
           </h3>
           <small className="text-[10px] text-gray-300 leading-3">
-            {songInfo?.album?.name}
+            {truncate(songInfo?.album?.name, 20)}
           </small>
         </div>
         <FavoriteBorderIcon className="text-gray-300 w-6 hidden sm:block" />
