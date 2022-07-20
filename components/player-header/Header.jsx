@@ -2,6 +2,7 @@ import ChevronLeftIcon from '@heroicons/react/solid/ChevronLeftIcon'
 import ChevronRightIcon from '@heroicons/react/solid/ChevronRightIcon'
 import PlayCircleFilledIcon from '@heroicons/react/solid/PlayIcon'
 import PauseIcon from '@heroicons/react/solid/PauseIcon'
+import MenuIcon from '@heroicons/react/solid/MenuIcon'
 import { createContext, useEffect, useState } from 'react'
 import AccountButton from './buttons/AccountButton'
 import DropDownMenuItem from './dropdownMenu/DropdownMenuItem'
@@ -10,6 +11,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { useRecoilState } from 'recoil'
 import { playlistState } from '../../atoms/playlistAtom'
 import { isPlayingState } from '../../atoms/songAtom'
+import { sidebarOpenState } from '../../atoms/uiAtom'
 import spotifyApi from '../../lib/spotify'
 
 const Header = ({ background, color }) => {
@@ -25,6 +27,7 @@ const Header = ({ background, color }) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [playlist, setPlaylist] = useRecoilState(playlistState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  const [sidebarOpen, setSidebarOpen] = useRecoilState(sidebarOpenState)
   const backgroundColor = background ? color?.color : `${color?.color}`
 
   const playIcon = () => {
@@ -32,7 +35,7 @@ const Header = ({ background, color }) => {
       return (
         <PauseIcon
           onClick={() => handlePlayPause()}
-          className={`hover:scale-[1.1] mx-4 w-14 duration-500 ${
+          className={`hover:scale-[1.1] text-green-400 w-14 duration-500 ${
             background ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -41,7 +44,7 @@ const Header = ({ background, color }) => {
       return (
         <PlayCircleFilledIcon
           onClick={() => handlePlayPause()}
-          className={`hover:scale-[1.1]  mx-4 w-14 duration-500 ${
+          className={`hover:scale-[1.1] text-green-400 w-14 duration-500 ${
             background ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -66,23 +69,31 @@ const Header = ({ background, color }) => {
       <div
         className={`py-5 ${backgroundColor} flex justify-between w-full to- px-7 h-[8vh] sticky top-0 transition-all ease-in-out`}
       >
-        <div className="flex items-center">
-          <span className="bg-black/20 rounded-full text-white mr-3">
+        <div className="flex gap-3 items-center">
+          <span>
+            <MenuIcon
+              className="w-10 text-white sm:hidden"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            />
+          </span>
+          <span className="bg-black/20 rounded-full text-white hidden sm:block">
             <ChevronLeftIcon className="w-8" />
           </span>
-          <span className="bg-black/30 rounded-full text-white">
+          <span className="bg-black/30 rounded-full text-white hidden sm:block">
             <ChevronRightIcon className="w-8" />
           </span>
-          <span>{playIcon()}</span>
+          <span className="absolute sm:relative sm:top-0 sm:right-0 top-7 right-7">
+            {playIcon()}
+          </span>
           <span
-            className={`text-2xl font-bold text-white transition-all duration-500 ${
+            className={`text-[4vw] lg:text-xl font-bold text-white transition-all duration-500 ${
               background ? 'opacity-100' : 'opacity-0'
             }`}
           >
             {playlist?.name}
           </span>
         </div>
-        <div className="flex items-center gap-4 relative">
+        <div className="sm:flex items-center gap-4 relative hidden ">
           <AccountButton user={session?.user} />
           <div
             className={`absolute top-10 right-0 w-48 bg-zinc-900/90 py-2 p-1 rounded-md ${

@@ -36,12 +36,22 @@ const Body = () => {
   const [navBackground, setNavBackground] = useState(false)
 
   const bodyScrolled = () => {
-    bodyRef.current.scrollTop >= 500
+    const screenWidth = screen.width
+    if (screenWidth > 600) {
+      bodyRef.current.scrollTop >= 500
+        ? setNavBackground(true)
+        : setNavBackground(false)
+      bodyRef.current.scrollTop >= 550
+        ? setHeaderBackgroundColor(true)
+        : setHeaderBackgroundColor(false)
+    } else {
+      bodyRef.current.scrollTop >= 250
       ? setNavBackground(true)
       : setNavBackground(false)
-    bodyRef.current.scrollTop >= 550
+    bodyRef.current.scrollTop >= 300
       ? setHeaderBackgroundColor(true)
       : setHeaderBackgroundColor(false)
+    }
   }
 
   useEffect(() => {
@@ -135,7 +145,7 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <div className="bg-black/30 pt-8 h-fit mt-[-50vh] mb-6">
+      <div className="bg-black/30 pt-8 h-fit xl:mt-[-50vh] mt-[-80vh] mb-6">
         <div className="flex px-7">
           {playIcon()}
           <FavoriteBorderIcon className="text-white/70 hover:text-white mr-5 w-8" />
@@ -148,9 +158,9 @@ const Body = () => {
         >
           <div className={`px-2 flex items-center `}>
             <div className="min-w-[5%] text-lg text-left">#</div>
-            <div className="min-w-[40%] text-left">TITLE</div>
-            <div className="min-w-[30%] text-left">ALBUM</div>
-            <div className="min-w-[15%]">DATE ADDED</div>
+            <div className="min-w-[50%] text-left">TITLE</div>
+            <div className="min-w-[40%] hidden sm:block text-left">ALBUM</div>
+            <div className="min-w-[15%] hidden xl:block">DATE ADDED</div>
             <div className="min-w-[10%] text-center flex justify-center">
               <AccessTimeIcon className="w-6" />
             </div>

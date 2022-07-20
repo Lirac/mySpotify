@@ -107,7 +107,7 @@ const Footer = () => {
         <FavoriteBorderIcon className="text-gray-300 w-6" />
       </div>
 
-      <div className="text-gray-300 flex items-center gap-3 justify-center">
+      <div className="text-gray-300 flex items-center gap-3 justify-center grow">
         <SwitchHorizontal className="hover:text-white w-6" />
         <SkipPreviousIcon
           className="hover:text-white w-6"
@@ -130,7 +130,7 @@ const Footer = () => {
         />
         <RepeatIcon className="hover:text-white w-6" />
       </div>
-      <div className="text-gray-400 flex gap-3 items-center justify-end md:space-x-2 pr-5">
+      <div className="text-gray-400 hidden sm:flex gap-3 items-center justify-end md:space-x-2 pr-5">
         <VolumeDownIcon
           onClick={() => volume > 0 && setVolume(volume - 10)}
           className="hover:text-white w-6"

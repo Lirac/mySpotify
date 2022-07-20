@@ -58,6 +58,8 @@ const SongRow = ({ item, index }) => {
     }
   }
 
+  const screenWidth = screen.width
+
   return (
     <div
       className="text-white/70 hover:text-white flex my-2 py-2 items-center hover:bg-slate-200/20 rounded-md px-2"
@@ -68,31 +70,33 @@ const SongRow = ({ item, index }) => {
         setRowHover(false)
       }}
     >
-      <div className="min-w-[5%] text-left" onClick={playSong}>
+      <div className="min-w-[7%] sm:min-w-[5%] text-left" onClick={playSong}>
         {rowPlayIcon()}
       </div>
-      <div className="min-w-[40%] flex gap-3">
+      <div className="sm:min-w-[50%] flex gap-3">
         <img
           src={item.track.album.images[0].url}
           alt=""
           className="w-9 object-contain"
         />
         <div>
-          <p className="font-semibold text-white">
-            {truncate(item.track.name, 50)}
+          <p className="font-semibold text-xs sm:text-sm text-white">
+            {screenWidth > 500
+              ? truncate(item.track.name, 50)
+              : truncate(item.track.name, 40)}
           </p>
           <p className="text-xs font-semibold">
             {item.track.artists.map((artist, index) => artist.name).join(', ')}
           </p>
         </div>
       </div>
-      <div className="min-w-[30%] text-xs font-medium">
+      <div className="min-w-[40%] hidden sm:block text-xs font-medium">
         {item.track.album.name}
       </div>
-      <div className="min-w-[15%] text-left text-sm">
+      <div className="min-w-[15%] text-left text-sm hidden xl:block">
         {dateFormat(item.added_at, 'mmm dd, yyyy')}
       </div>
-      <div className="min-w-[10%] text-sm flex justify-center items-center gap-3">
+      <div className="min-w-[10%] text-sm hidden  sm:flex justify-center items-center gap-3">
         <span
           className={`${
             rowHover ? 'visible' : 'invisible'
