@@ -158,9 +158,9 @@ const Body = () => {
         >
           <div className={`px-2 flex items-center `}>
             <div className="min-w-[5%] text-lg text-left">#</div>
-            <div className="min-w-[50%] text-left">TITLE</div>
-            <div className="min-w-[40%] hidden sm:block text-left">ALBUM</div>
-            <div className="min-w-[15%] hidden xl:block">DATE ADDED</div>
+            <div className="min-w-[50%] sm:min-w-[40%] text-left">TITLE</div>
+            <div className="min-w-[40%] sm:min-w-[35%] hidden sm:block text-left">ALBUM</div>
+            <div className="min-w-[15%] sm:min-w-[10%] hidden xl:block">DATE ADDED</div>
             <div className="min-w-[10%] text-center flex justify-center">
               <AccessTimeIcon className="w-6" />
             </div>

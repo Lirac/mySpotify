@@ -70,10 +70,10 @@ const SongRow = ({ item, index }) => {
         setRowHover(false)
       }}
     >
-      <div className="min-w-[7%] sm:min-w-[5%] text-left" onClick={playSong}>
+      <div className="min-w-[10%] sm:min-w-[5%] text-left" onClick={playSong}>
         {rowPlayIcon()}
       </div>
-      <div className="sm:min-w-[50%] flex gap-3">
+      <div className="min-w-[50%] sm:min-w-[40%] flex gap-3">
         <img
           src={item.track.album.images[0].url}
           alt=""
@@ -90,10 +90,10 @@ const SongRow = ({ item, index }) => {
           </p>
         </div>
       </div>
-      <div className="min-w-[40%] hidden sm:block text-xs font-medium">
+      <div className="min-w-[40%] sm:min-w-[35%] hidden sm:block text-xs font-medium">
         {item.track.album.name}
       </div>
-      <div className="min-w-[15%] text-left text-sm hidden xl:block">
+      <div className="min-w-[15%] sm:min-w-[10%] text-left text-sm hidden xl:block">
         {dateFormat(item.added_at, 'mmm dd, yyyy')}
       </div>
       <div className="min-w-[10%] text-sm hidden  sm:flex justify-center items-center gap-3">
