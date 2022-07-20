@@ -14,15 +14,14 @@ import useSpotify from '../hooks/useSpotify'
 import { isPlayingState } from '../atoms/songAtom'
 
 const colors = [
-  'from-indigo-500',
-  'from-red-500',
-  'from-orange-500',
-  'from-green-500',
-  'from-blue-500',
-  'from-purple-500',
-  'from-pink-500',
-  'from-teal-500',
-  'from-yellow-500',
+  { gradient: 'from-indigo-500', color: 'bg-indigo-500' },
+  { gradient: 'from-red-500', color: 'bg-red-500' },
+  { gradient: 'from-orange-500', color: 'bg-orange-500' },
+  { gradient: 'from-green-500', color: 'bg-green-500' },
+  { gradient: 'from-blue-500', color: 'bg-blue-500' },
+  { gradient: 'from-pink-500', color: 'bg-pink-500' },
+  { gradient: 'from-teal-500', color: 'bg-teal-500' },
+  { gradient: 'from-yellow-500', color: 'bg-yellow-500' },
 ]
 
 const Body = () => {
@@ -95,11 +94,11 @@ const Body = () => {
       onScroll={() => {
         bodyScrolled()
       }}
-      className={`flex-grow overflow-y-scroll scrollbar-hide h-screen w-full  pb-28`}
+      className={`flex-grow overflow-y-scroll scrollbar-hide h-screen w-full bg-black pb-12`}
     >
       <Header background={navBackground} color={color} />
       <div
-        className={`bg-gradient-to-b  ${color} to-transparent h-screen w-full pt-10`}
+        className={`bg-gradient-to-b  ${color?.gradient} to-transparent h-screen w-full pt-10`}
       >
         <div className="flex items-end gap-8 text-white mb-6 px-7">
           <img
