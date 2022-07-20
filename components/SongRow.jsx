@@ -73,7 +73,7 @@ const SongRow = ({ item, index }) => {
       <div className="min-w-[10%] sm:min-w-[5%] text-left" onClick={playSong}>
         {rowPlayIcon()}
       </div>
-      <div className="min-w-[50%] sm:min-w-[40%] flex gap-3">
+      <div className="min-w-[50%] xl:min-w-[40%] flex gap-3">
         <img
           src={item.track.album.images[0].url}
           alt=""
@@ -81,7 +81,7 @@ const SongRow = ({ item, index }) => {
         />
         <div>
           <p className="font-semibold text-xs sm:text-sm text-white">
-            {screenWidth > 500
+            {screenWidth > 1000
               ? truncate(item.track.name, 50)
               : truncate(item.track.name, 40)}
           </p>
@@ -91,7 +91,7 @@ const SongRow = ({ item, index }) => {
         </div>
       </div>
       <div className="min-w-[40%] sm:min-w-[35%] hidden sm:block text-xs font-medium">
-        {item.track.album.name}
+        {truncate(item.track.album.name, 35)}
       </div>
       <div className="min-w-[15%] sm:min-w-[10%] text-left text-sm hidden xl:block">
         {dateFormat(item.added_at, 'mmm dd, yyyy')}

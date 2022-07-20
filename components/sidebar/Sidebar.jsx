@@ -35,7 +35,7 @@ const Sidebar = () => {
     <div
       className={`bg-black/90 sm:bg-black text-white min-w-[250px] p-5 h-screen ${
         sidebarOpen ? '' : 'hidden '
-      }fixed sm:relative z-10 sm:z-0 lg:block`}
+      }fixed lg:relative z-10 lg:z-0 lg:block`}
     >
       {sidebarOpen && (
         <CloseIcon

@@ -67,19 +67,21 @@ const Header = ({ background, color }) => {
   return (
     <headerContext.Provider value={{ showDropdown, setShowDropdown }}>
       <div
-        className={`py-5 ${backgroundColor} flex justify-between w-full to- px-7 h-[8vh] sticky top-0 transition-all ease-in-out`}
+        className={`py-5 flex justify-between to- px-7 h-[8vh] fixed min-w-full lg:min-w-[calc(100%-250px)] top-0 transition-all ease-in-out ${
+          background ? `${color?.color}` : 'transparent'
+        }`}
       >
         <div className="flex gap-3 items-center">
           <span>
             <MenuIcon
-              className="w-10 text-white sm:hidden"
+              className="w-10 text-white lg:hidden"
               onClick={() => setSidebarOpen(!sidebarOpen)}
             />
           </span>
-          <span className="bg-black/20 rounded-full text-white hidden sm:block">
+          <span className="bg-black/20 rounded-full text-white hidden lg:block">
             <ChevronLeftIcon className="w-8" />
           </span>
-          <span className="bg-black/30 rounded-full text-white hidden sm:block">
+          <span className="bg-black/30 rounded-full text-white hidden lg:block">
             <ChevronRightIcon className="w-8" />
           </span>
           <span className="absolute sm:relative sm:top-0 sm:right-0 top-7 right-7">
@@ -93,7 +95,7 @@ const Header = ({ background, color }) => {
             {playlist?.name}
           </span>
         </div>
-        <div className="sm:flex items-center gap-4 relative hidden ">
+        <div className="sm:flex items-center gap-4 relative hidden">
           <AccountButton user={session?.user} />
           <div
             className={`absolute top-10 right-0 w-48 bg-zinc-900/90 py-2 p-1 rounded-md ${

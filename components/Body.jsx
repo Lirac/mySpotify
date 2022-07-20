@@ -17,7 +17,7 @@ const colors = [
   { gradient: 'from-indigo-500', color: 'bg-indigo-500' },
   { gradient: 'from-red-500', color: 'bg-red-500' },
   { gradient: 'from-orange-500', color: 'bg-orange-500' },
-  { gradient: 'from-green-500', color: 'bg-green-500' },
+  { gradient: 'from-purple-500', color: 'bg-purple-500' },
   { gradient: 'from-blue-500', color: 'bg-blue-500' },
   { gradient: 'from-pink-500', color: 'bg-pink-500' },
   { gradient: 'from-teal-500', color: 'bg-teal-500' },
@@ -45,12 +45,12 @@ const Body = () => {
         ? setHeaderBackgroundColor(true)
         : setHeaderBackgroundColor(false)
     } else {
-      bodyRef.current.scrollTop >= 250
-      ? setNavBackground(true)
-      : setNavBackground(false)
-    bodyRef.current.scrollTop >= 300
-      ? setHeaderBackgroundColor(true)
-      : setHeaderBackgroundColor(false)
+      bodyRef.current.scrollTop >= 600
+        ? setNavBackground(true)
+        : setNavBackground(false)
+      bodyRef.current.scrollTop >= 650
+        ? setHeaderBackgroundColor(true)
+        : setHeaderBackgroundColor(false)
     }
   }
 
@@ -106,17 +106,17 @@ const Body = () => {
       }}
       className={`flex-grow overflow-y-scroll scrollbar-hide h-screen w-full bg-black pb-12`}
     >
-      <Header background={navBackground} color={color} />
       <div
         className={`bg-gradient-to-b  ${color?.gradient} to-transparent h-screen w-full pt-10`}
       >
-        <div className="flex items-end gap-8 text-white mb-6 px-7">
+        <Header background={navBackground} color={color} />
+        <div className="flex flex-col items-center sm:flex-row sm:items-end gap-8 text-white mb-6 mt-6 md:mt-16 px-7">
           <img
             src={playlist?.images?.[0].url}
             alt=""
-            className="w-[15vw] shadow-2xl"
+            className="w-[25vh] sm:w-[17vw] shadow-2xl"
           />
-          <div>
+          <div className="text-center sm:text-left">
             <p className="font-bold text-white text-xs">PLAYLIST</p>
             <h2 className="text-[5.5vw] font-bold text-white leading-none mb-4">
               {playlist?.name}
@@ -145,7 +145,7 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <div className="bg-black/30 pt-8 h-fit xl:mt-[-50vh] mt-[-80vh] mb-6">
+      <div className="bg-black/30 pt-8 h-fit md:mt-[-60vh] xl:mt-[-50vh] mt-[-40vh] mb-6">
         <div className="flex px-7">
           {playIcon()}
           <FavoriteBorderIcon className="text-white/70 hover:text-white mr-5 w-8" />
@@ -158,9 +158,13 @@ const Body = () => {
         >
           <div className={`px-2 flex items-center `}>
             <div className="min-w-[5%] text-lg text-left">#</div>
-            <div className="min-w-[50%] sm:min-w-[40%] text-left">TITLE</div>
-            <div className="min-w-[40%] sm:min-w-[35%] hidden sm:block text-left">ALBUM</div>
-            <div className="min-w-[15%] sm:min-w-[10%] hidden xl:block">DATE ADDED</div>
+            <div className="min-w-[50%] xl:min-w-[40%] text-left">TITLE</div>
+            <div className="min-w-[40%] sm:min-w-[35%] hidden sm:block text-left">
+              ALBUM
+            </div>
+            <div className="min-w-[15%] sm:min-w-[10%] hidden xl:block">
+              DATE ADDED
+            </div>
             <div className="min-w-[10%] text-center flex justify-center">
               <AccessTimeIcon className="w-6" />
             </div>
