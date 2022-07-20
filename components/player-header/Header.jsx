@@ -6,7 +6,7 @@ import DropDownMenuItem from './dropdownMenu/DropdownMenuItem'
 import { headerContext } from '../../context/headerContext'
 import { useSession, signOut } from 'next-auth/react'
 
-const Header = () => {
+const Header = ({ background, color }) => {
   const { data: session } = useSession()
 
   const dropDownItems = [
@@ -17,10 +17,13 @@ const Header = () => {
     { title: 'Log Out', hasIcon: false },
   ]
   const [showDropdown, setShowDropdown] = useState(false)
+  const backgroundColor = background ? 'bg-black/90' : `bg-gradient-to-r ${color} to-transparent`
 
   return (
     <headerContext.Provider value={{ showDropdown, setShowDropdown }}>
-      <div className="py-5 bg-transparent flex justify-between w-full px-7">
+      <div
+        className={`py-5 ${backgroundColor} flex justify-between w-full to- px-7 h-[8vh] sticky top-0 transition-all ease-in-out`}
+      >
         <div>
           <span className="bg-black/20 rounded-full text-white inline-block  mr-3">
             <ChevronLeftIcon className="w-8" />

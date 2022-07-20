@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PlayCircleFilledIcon from '@heroicons/react/solid/PlayIcon'
 import PauseIcon from '@heroicons/react/solid/PauseIcon'
 import FavoriteBorderIcon from '@heroicons/react/solid/HeartIcon'
@@ -32,6 +32,18 @@ const Body = () => {
   const playlistId = useRecoilValue(playlistIdState)
   const [playlist, setPlaylist] = useRecoilState(playlistState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  const bodyRef = useRef()
+  const [headerBackgroundColor, setHeaderBackgroundColor] = useState(false)
+  const [navBackground, setNavBackground] = useState(false)
+
+  const bodyScrolled = () => {
+    bodyRef.current.scrollTop >= 500
+      ? setNavBackground(true)
+      : setNavBackground(false)
+    bodyRef.current.scrollTop >= 550
+      ? setHeaderBackgroundColor(true)
+      : setHeaderBackgroundColor(false)
+  }
 
   useEffect(() => {
     spotifyApi
@@ -78,12 +90,17 @@ const Body = () => {
   }
 
   return (
-    <div className="flex-grow overflow-y-scroll scrollbar-hide bg-zinc-900">
+    <div
+      ref={bodyRef}
+      onScroll={() => {
+        bodyScrolled()
+      }}
+      className={`flex-grow overflow-y-scroll scrollbar-hide h-screen w-full  pb-28`}
+    >
+      <Header background={navBackground} color={color} />
       <div
-        className={`bg-gradient-to-b ${color} to-zinc-900 h-full w-full  pb-28`}
+        className={`bg-gradient-to-b  ${color} to-transparent h-screen w-full pt-10`}
       >
-        <Header />
-
         <div className="flex items-end gap-8 text-white mb-6 px-7">
           <img
             src={playlist?.images?.[0].url}
@@ -119,14 +136,18 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <div className="bg-black/10 px-7 pt-8 h-fit mt-[-50vh] mb-6">
-        <div className="flex">
+      <div className="bg-black/30 pt-8 h-fit mt-[-50vh] mb-6">
+        <div className="flex px-7">
           {playIcon()}
           <FavoriteBorderIcon className="text-white/70 hover:text-white mr-5 w-8" />
           <MoreHorizIcon className="text-white/70 hover:text-white w-8" />
         </div>
-        <div className="text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2 hidden md:block">
-          <div className="px-2 flex items-center">
+        <div
+          className={`text-white/70 font-medium text-xs mt-8 border-b border-slate-50/30 pb-2 hidden md:block sticky top-[8vh] transition-all ease-in-out ${
+            headerBackgroundColor ? 'bg-zinc-900 px-7' : 'mx-7'
+          } `}
+        >
+          <div className={`px-2 flex items-center `}>
             <div className="min-w-[5%] text-lg text-left">#</div>
             <div className="min-w-[40%] text-left">TITLE</div>
             <div className="min-w-[30%] text-left">ALBUM</div>
@@ -137,7 +158,7 @@ const Body = () => {
           </div>
         </div>
 
-        <div>
+        <div className="px-7">
           {playlist?.tracks?.items?.map((item, index) => (
             <SongRow key={item.track.id} item={item} index={index}></SongRow>
           ))}
