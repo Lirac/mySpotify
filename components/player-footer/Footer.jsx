@@ -114,7 +114,7 @@ const Footer = () => {
       </div>
 
       <div className="text-gray-300 flex items-center gap-3 justify-center grow">
-        <SwitchHorizontal className="hover:text-white w-6" />
+        <SwitchHorizontal className="hover:text-white w-6 hidden sm:block" />
         <SkipPreviousIcon
           className="hover:text-white w-6"
           onClick={() => handlePrevious()}
@@ -134,7 +134,7 @@ const Footer = () => {
           className="hover:text-white w-6"
           onClick={() => handleNext()}
         />
-        <RepeatIcon className="hover:text-white w-6" />
+        <RepeatIcon className="hover:text-white w-6 hidden sm:block" />
       </div>
       <div className="text-gray-400 hidden sm:flex gap-3 items-center justify-end md:space-x-2 pr-5">
         <VolumeDownIcon
