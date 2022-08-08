@@ -103,7 +103,7 @@ const Footer = () => {
           className="h-9 sm:h-12 object-contain"
         />
         <div className="text-white mr-4">
-          <h3 className="text-[2.5vw] font-semibold leading-[0.5rem]">
+          <h3 className="text-[2.5vw] md:text-sm font-semibold leading-[0.5rem]">
             {truncate(songInfo?.name,30)}
           </h3>
           <small className="text-[10px] text-gray-300 leading-3">
